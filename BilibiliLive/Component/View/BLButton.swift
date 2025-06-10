@@ -74,6 +74,7 @@ class BLCustomButton: BLButton {
                 titleLabel.snp.makeConstraints { make in
                     make.leading.trailing.bottom.equalToSuperview()
                     make.top.equalTo(effectView.snp.bottom).offset(10)
+                    make.height.equalTo(30)
                 }
             }
         }

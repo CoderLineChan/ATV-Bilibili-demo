@@ -23,6 +23,7 @@ class VideoDetailViewController: UIViewController {
 
     @IBOutlet var titleLabel: UILabel!
 
+    @IBOutlet var playContainer: UIStackView!
     @IBOutlet var upButton: BLCustomTextButton!
     @IBOutlet var followButton: BLCustomButton!
     @IBOutlet var coverImageView: UIImageView!
@@ -32,6 +33,7 @@ class VideoDetailViewController: UIViewController {
     @IBOutlet var noteView: NoteDetailView!
     @IBOutlet var dislikeButton: BLCustomButton!
 
+    @IBOutlet var replayButton: BLCustomButton!
     @IBOutlet var actionButtonSpaceView: UIView!
     @IBOutlet var durationLabel: UILabel!
     @IBOutlet var playCountLabel: UILabel!
@@ -56,6 +58,20 @@ class VideoDetailViewController: UIViewController {
     private var aid = 0
     private var cid = 0
     private var data: VideoDetail?
+    private var lastPlayInfo: PlayInfo? {
+        set {
+            guard let data else { return }
+            let key = "play_record_key_\(data.View.aid)_\(data.View.cid)"
+            UserDefaults.standard.set(codable: newValue, forKey: key)
+        }
+        get {
+            guard let data else { return nil }
+            let key = "play_record_key_\(data.View.aid)_\(data.View.cid)"
+            let info: PlayInfo? = UserDefaults.standard.codable(forKey: key)
+            return info
+        }
+    }
+
     @IBOutlet var scrollView: UIScrollView!
     private var didSentCoins = 0 {
         didSet {
@@ -156,7 +172,9 @@ class VideoDetailViewController: UIViewController {
         } else {
             vc.present(self, animated: false) { [weak self] in
                 guard let self else { return }
-                let player = VideoPlayerViewController(playInfo: PlayInfo(aid: self.aid, cid: self.cid, epid: self.epid, isBangumi: self.isBangumi))
+                let playInfo = PlayInfo(aid: self.aid, cid: self.cid, epid: self.epid, isBangumi: self.isBangumi)
+                lastPlayInfo = playInfo
+                let player = VideoPlayerViewController(playInfo: playInfo)
                 self.present(player, animated: true)
             }
         }
@@ -243,6 +261,19 @@ class VideoDetailViewController: UIViewController {
         WebRequest.requestFavoriteStatus(aid: aid) { [weak self] isFavorited in
             self?.favButton.isOn = isFavorited
         }
+    }
+
+    private func reloadPlayRecord() {
+        guard let data else { return }
+        let key = "play_record_key_\(data.View.aid)_\(data.View.cid)"
+        let lastPlayInfo: PlayInfo? = UserDefaults.standard.codable(forKey: key)
+        self.lastPlayInfo = lastPlayInfo
+        replayButton.isHidden = true
+        guard let lastPlayInfo else { return }
+        guard let page = pages.first(where: { $0.cid == lastPlayInfo.cid }) else { return }
+        replayButton.isHidden = false
+
+        replayButton.title = "继续第\(page.part)集"
     }
 
     private func fetchAreaLimitBangumiData() async -> Bool? {
@@ -347,6 +378,7 @@ class VideoDetailViewController: UIViewController {
         }
 
         recommandCollectionView.reloadData()
+        reloadPlayRecord()
     }
 
     @IBAction func actionShowUpSpace(_ sender: Any) {
@@ -362,8 +394,24 @@ class VideoDetailViewController: UIViewController {
         }
     }
 
+    @IBAction func actionContinuePlay(_ sender: Any) {
+        guard let lastPlayInfo else { return }
+        let player = VideoPlayerViewController(playInfo: lastPlayInfo)
+        player.data = data
+        if pages.count > 0, let index = pages.firstIndex(where: { $0.cid == cid }) {
+            let seq = pages.dropFirst(index).map({ PlayInfo(aid: aid, cid: $0.cid, epid: $0.epid, isBangumi: isBangumi) })
+            if seq.count > 0 {
+                let nextProvider = VideoNextProvider(seq: seq)
+                player.nextProvider = nextProvider
+            }
+        }
+        present(player, animated: true, completion: nil)
+    }
+
     @IBAction func actionPlay(_ sender: Any) {
-        let player = VideoPlayerViewController(playInfo: PlayInfo(aid: aid, cid: cid, epid: epid, isBangumi: isBangumi))
+        let play = PlayInfo(aid: aid, cid: cid, epid: epid, isBangumi: isBangumi)
+        lastPlayInfo = play
+        let player = VideoPlayerViewController(playInfo: play)
         player.data = data
         if pages.count > 0, let index = pages.firstIndex(where: { $0.cid == cid }) {
             let seq = pages.dropFirst(index).map({ PlayInfo(aid: aid, cid: $0.cid, epid: $0.epid, isBangumi: isBangumi) })
@@ -460,7 +508,9 @@ extension VideoDetailViewController: UICollectionViewDelegate {
         switch collectionView {
         case pageCollectionView:
             let page = pages[indexPath.item]
-            let player = VideoPlayerViewController(playInfo: PlayInfo(aid: isBangumi ? page.page : aid, cid: page.cid, epid: page.epid, isBangumi: isBangumi))
+            let playInfo = PlayInfo(aid: isBangumi ? page.page : aid, cid: page.cid, epid: page.epid, isBangumi: isBangumi)
+            lastPlayInfo = playInfo
+            let player = VideoPlayerViewController(playInfo: playInfo)
             player.data = isBangumi ? nil : data
 
             let seq = pages.dropFirst(indexPath.item).map({ PlayInfo(aid: aid, cid: $0.cid, isBangumi: isBangumi) })

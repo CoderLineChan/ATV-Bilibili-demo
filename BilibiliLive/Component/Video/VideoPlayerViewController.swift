@@ -9,7 +9,7 @@ import AVKit
 import Combine
 import UIKit
 
-struct PlayInfo {
+struct PlayInfo: Codable {
     let aid: Int
     var cid: Int? = 0
     var epid: Int? = 0 // 港澳台解锁需要
@@ -53,6 +53,10 @@ class VideoPlayerViewController: CommonPlayerViewController {
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    deinit {
+        print("deinit-VideoPlayerViewController")
     }
 
     private let viewModel: VideoPlayerViewModel

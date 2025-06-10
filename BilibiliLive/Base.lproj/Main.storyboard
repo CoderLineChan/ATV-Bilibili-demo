@@ -316,7 +316,7 @@
                                                                     </constraints>
                                                                 </stackView>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VqR-Fc-Jmv" customClass="NoteDetailView" customModule="BilibiliLive" customModuleProvider="target">
-                                                                    <rect key="frame" x="80" y="293" width="880" height="166"/>
+                                                                    <rect key="frame" x="80" y="293" width="1060" height="166"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </view>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="HqG-K2-eD5">
@@ -421,8 +421,28 @@
                                                                         <constraint firstAttribute="width" constant="60" id="9T5-OL-kYd"/>
                                                                     </constraints>
                                                                 </view>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lfB-VX-ver" customClass="BLCustomButton" customModule="BilibiliLive" customModuleProvider="target">
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RpB-ni-hhl" customClass="BLCustomButton" customModule="BilibiliLive" customModuleProvider="target">
                                                                     <rect key="frame" x="80" y="0.0" width="160" height="128"/>
+                                                                    <viewLayoutGuide key="safeArea" id="Mq6-XQ-jRY"/>
+                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <color key="tintColor" name="bgColor"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="160" id="Piq-iF-wNu"/>
+                                                                    </constraints>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="image" keyPath="image" value="play" catalog="system"/>
+                                                                        <userDefinedRuntimeAttribute type="string" keyPath="title" value="继续播放"/>
+                                                                        <userDefinedRuntimeAttribute type="image" keyPath="highLightImage" value="play.fill" catalog="system"/>
+                                                                        <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
+                                                                            <color key="value" name="titleColor"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                    </userDefinedRuntimeAttributes>
+                                                                    <connections>
+                                                                        <action selector="actionContinuePlay:" destination="Q5X-tf-Ysh" eventType="primaryActionTriggered" id="fNb-D6-mFi"/>
+                                                                    </connections>
+                                                                </view>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lfB-VX-ver" customClass="BLCustomButton" customModule="BilibiliLive" customModuleProvider="target">
+                                                                    <rect key="frame" x="260" y="0.0" width="160" height="128"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <color key="tintColor" name="bgColor"/>
                                                                     <constraints>
@@ -441,7 +461,7 @@
                                                                     </connections>
                                                                 </view>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lIW-Ax-AbL" customClass="BLCustomButton" customModule="BilibiliLive" customModuleProvider="target">
-                                                                    <rect key="frame" x="260" y="0.0" width="160" height="128"/>
+                                                                    <rect key="frame" x="440" y="0.0" width="160" height="128"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <color key="tintColor" name="bgColor"/>
                                                                     <userDefinedRuntimeAttributes>
@@ -457,7 +477,7 @@
                                                                     </connections>
                                                                 </view>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Olx-aY-Y43" customClass="BLCustomButton" customModule="BilibiliLive" customModuleProvider="target">
-                                                                    <rect key="frame" x="440" y="0.0" width="160" height="128"/>
+                                                                    <rect key="frame" x="620" y="0.0" width="160" height="128"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <color key="tintColor" name="bgColor"/>
                                                                     <userDefinedRuntimeAttributes>
@@ -473,7 +493,7 @@
                                                                     </connections>
                                                                 </view>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fxL-C9-Fqb" customClass="BLCustomButton" customModule="BilibiliLive" customModuleProvider="target">
-                                                                    <rect key="frame" x="620" y="0.0" width="160" height="128"/>
+                                                                    <rect key="frame" x="800" y="0.0" width="160" height="128"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <color key="tintColor" name="bgColor"/>
                                                                     <userDefinedRuntimeAttributes>
@@ -489,7 +509,7 @@
                                                                     </connections>
                                                                 </view>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Efg-f4-str" customClass="BLCustomButton" customModule="BilibiliLive" customModuleProvider="target">
-                                                                    <rect key="frame" x="800" y="0.0" width="160" height="128"/>
+                                                                    <rect key="frame" x="980" y="0.0" width="160" height="128"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <color key="tintColor" name="bgColor"/>
                                                                     <userDefinedRuntimeAttributes>
@@ -505,7 +525,7 @@
                                                                     </connections>
                                                                 </view>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D4E-g6-BwX">
-                                                                    <rect key="frame" x="980" y="0.0" width="940" height="128"/>
+                                                                    <rect key="frame" x="1160" y="0.0" width="760" height="128"/>
                                                                 </view>
                                                             </subviews>
                                                             <constraints>
@@ -798,8 +818,10 @@
                         <outlet property="pageCollectionView" destination="qLh-0S-AdH" id="EsJ-d9-ngu"/>
                         <outlet property="pageView" destination="JAA-Xe-yWz" id="5Cy-tC-z0O"/>
                         <outlet property="playButton" destination="lfB-VX-ver" id="9XU-MT-KOf"/>
+                        <outlet property="playContainer" destination="vbQ-HI-MDf" id="2CJ-8f-612"/>
                         <outlet property="playCountLabel" destination="ahl-Fa-Qpg" id="q6V-be-wNj"/>
                         <outlet property="recommandCollectionView" destination="nw1-cq-9yk" id="w8m-bc-mWQ"/>
+                        <outlet property="replayButton" destination="RpB-ni-hhl" id="NoS-Ra-R2T"/>
                         <outlet property="repliesCollectionViewHeightConstraints" destination="dCt-K6-G5Q" id="ZfP-oq-I5s"/>
                         <outlet property="replysCollectionView" destination="zj0-CY-pLt" id="8h4-LO-bUs"/>
                         <outlet property="scrollView" destination="Dm8-CL-kxU" id="R6I-to-71J"/>
